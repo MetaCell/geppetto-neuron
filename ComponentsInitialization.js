@@ -1,4 +1,5 @@
 define(function (require) {
+    
     return function (GEPPETTO) {
 
         //Inject css stylesheet
@@ -8,6 +9,19 @@ define(function (require) {
         link.href = "geppetto/extensions/geppetto-neuron/css/material.css";
         document.getElementsByTagName("head")[0].appendChild(link);
 
+        //Inject css stylesheet
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = "geppetto/extensions/geppetto-neuron/css/widgets-base.css";
+        document.getElementsByTagName("head")[0].appendChild(link);
+
+                //Inject css stylesheet
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = "geppetto/extensions/geppetto-neuron/css/variables-dark.css";
+        document.getElementsByTagName("head")[0].appendChild(link);
 
         var link = document.createElement("link");
         link.type = "text/css";
