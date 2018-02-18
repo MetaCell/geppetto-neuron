@@ -105,54 +105,55 @@ export default class NetPyNEStimulationTargets extends React.Component {
     }
     return newModel || newItemCreated || itemRenamed || selectionChanged || pageChanged;
   }
-
+  
   render() {
-
-    var that = this;
-    var model = this.state.value;
-    var content;
+    
     if (this.state.page == 'main') {
+      if (this.state.value != undefined && this.state.value != "") {
+        var model = this.state.value;
+        for (var m in model) {
+          model[m].name = m;
+        }
+        var StimulationTargets = [];
+        for (var key in model) {
+          StimulationTargets.push(<NetPyNEStimulationThumbnail name={key} key={key} selected={key == this.state.selectedStimulationTarget} handleClick={this.selectStimulationTarget} />);
+        }
+        var selectedStimulationTarget = undefined;
+        if (this.state.selectedStimulationTarget) {
+          selectedStimulationTarget = <NetPyNEStimulationTarget name={this.state.selectedStimulationTarget} model={this.state.value[this.state.selectedStimulationTarget]} selectPage={this.selectPage} />;
+        }
+      }        
 
-      var StimulationTargets = [];
-      for (var c in model) {
-        StimulationTargets.push(<NetPyNEStimulationThumbnail name={c} key={c} selected={c == this.state.selectedStimulationTarget} handleClick={this.selectStimulationTarget} />);
-      }
-      var selectedStimulationTarget = undefined;
-      if (this.state.selectedStimulationTarget) {
-        selectedStimulationTarget = <NetPyNEStimulationTarget name={this.state.selectedStimulationTarget} model={this.state.value[this.state.selectedStimulationTarget]} selectPage={this.selectPage} />;
-      }
-
-      content = (
-        <CardText className={"tabContainer"} expandable={true}>
-          <div className={"details"}>
-            {selectedStimulationTarget}
-          </div>
-          <div className={"thumbnails"}>
-            <div className="breadcrumb">
-              <IconMenu style={{ float: 'left', marginTop: "12px", marginLeft: "18px" }}
-                iconButtonElement={
-                  <NetPyNENewStimulationTarget handleClick={this.handleNewStimulationTarget} />
-                }
-                anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-              >
-              </IconMenu>
+      return (
+        <Card style={{ clear: 'both' }}>
+          <CardHeader
+            title="Stimulation targets"
+            subtitle="Define here the rules to generate the stimulation targets in your network"
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText className={"tabContainer"} expandable={true}>
+            <div className={"details"}>
+              {selectedStimulationTarget}
             </div>
-            <div style={{ clear: "both" }}></div>
-            {StimulationTargets}
-          </div>
-        </CardText>);
+            <div className={"thumbnails"}>
+              <div className="breadcrumb">
+                <IconMenu style={{ float: 'left', marginTop: "12px", marginLeft: "18px" }}
+                  iconButtonElement={
+                    <NetPyNENewStimulationTarget handleClick={this.handleNewStimulationTarget} />
+                  }
+                  anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                  targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+                >
+                </IconMenu>
+              </div>
+              <div style={{ clear: "both" }}></div>
+              {StimulationTargets}
+            </div>
+          </CardText>);
+        </Card>
+      );
     }
-
-    return (
-      <Card style={{ clear: 'both' }}>
-        <CardHeader
-          title="Stimulation targets"
-          subtitle="Define here the rules to generate the stimulation targets in your network"
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
-        {content}
-      </Card>);
   }
 }
+

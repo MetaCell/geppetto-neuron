@@ -24,9 +24,9 @@ export default class NetPyNENewStimulationSource extends React.Component {
     if (this.props.handleClick) {
       this.props.handleClick({ 'Target': {
           'source': '',
-          'sec':'',
+          'sec': '',
           'loc': 0,
-          'conds': {'pop':''}}});
+          'conds': ''}});
     }
   }
 
